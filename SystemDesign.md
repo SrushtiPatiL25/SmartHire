@@ -1,20 +1,21 @@
-# 🧠 System Design: AI-Powered Resume & JD Matcher
+## 🛠️ System Design: AI-Powered Resume & JD Matcher
 
-## 🎯 Project Goal
-
-To build a web platform that uses AI to match candidate resumes with job descriptions (JDs) based on skills, experience, and relevance. It helps **job seekers** get better job matches and **recruiters** identify ideal candidates efficiently.
-
----
-
-## 🏗️ System Architecture Overview
-
-````mermaid
+```mermaid
 flowchart TD
-    UI[User Interface (React)] --> API[Backend API (Spring Boot)]
-    API --> AUTH[Authentication (JWT)]
-    API --> RESUME[Resume & JD Upload API]
-    API --> MATCHER[Matching Engine (AI/NLP)]
-    MATCHER --> LLM[OpenAI API or Local Model]
-    API --> DB[(Database: PostgreSQL/MongoDB)]
-    DB -->|Stores| DATA[User Info, Resumes, JDs, Match Results]
-    API --> ADMIN[Admin & Analytics Panel]
+  UI[👩‍💻 User Interface (React)]
+  API[🔗 Backend API (Spring Boot)]
+  AI[🧠 AI Matching Engine (OpenAI/GPT)]
+  DB[(🗃️ Database - MySQL/MongoDB)]
+  FS[(📁 File Storage - AWS S3 / Local)]
+  Admin[🧑‍💼 Admin Dashboard (React)]
+  Auth[(🔐 Auth Service - JWT/OAuth2)]
+
+  UI -->|Login/Upload Resume| Auth
+  UI -->|Send Resume/JD| API
+  Admin --> API
+  API --> Auth
+  API --> DB
+  API --> FS
+  API --> AI
+  AI --> API
+  API -->|Send Match Results| UI
